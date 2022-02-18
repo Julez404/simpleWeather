@@ -183,7 +183,7 @@ class _HomeState extends State<Home> {
                   leading: FaIcon(FontAwesomeIcons.thermometerHalf),
                   title: Text("Temperatur"),
                   trailing: Text(temperature != null
-                      ? temperature.toString() + "\u00B0"
+                      ? temperature.toString() + " \u00B0C"
                       : "Loading"),
                 ),
                 ListTile(
@@ -203,20 +203,20 @@ class _HomeState extends State<Home> {
                   leading: FaIcon(FontAwesomeIcons.wind),
                   title: Text("Wind Speed"),
                   trailing: Text(windSpeed != null
-                      ? windSpeed.toString() + " km/h"
+                      ? windSpeed.toString() + " m/s"
                       : "Loading"),
                 ),
                 ListTile(
                   leading: FaIcon(FontAwesomeIcons.globe),
                   title: Text("Longitude"),
                   trailing: Text(
-                      long != null ? long.toString() + "\u00B0" : "Loading"),
+                      long != null ? long.toString() + " \u00B0" : "Loading"),
                 ),
                 ListTile(
                   leading: FaIcon(FontAwesomeIcons.globe),
                   title: Text("Latitude"),
-                  trailing:
-                      Text(lat != null ? lat.toString() + "\u00B0" : "Loading"),
+                  trailing: Text(
+                      lat != null ? lat.toString() + " \u00B0" : "Loading"),
                 ),
               ]),
             ),
