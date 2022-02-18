@@ -59,7 +59,15 @@ class _HomeState extends State<Home> {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-    return await Geolocator.getCurrentPosition();
+    Position? currentPosition;
+    currentPosition = await Geolocator.getLastKnownPosition();
+
+    if (currentPosition == null) {
+      Future.error("Failed by timeout");
+      throw TimeoutException("Failed to get Position");
+    }
+
+    return currentPosition;
   }
 
   Future UpdateLocation() async {
@@ -79,7 +87,13 @@ class _HomeState extends State<Home> {
   }
 
   Future GetWeather() async {
-    Position position = await determinePosition();
+    Position position;
+    try {
+      position = await determinePosition();
+    } catch (err) {
+      AlertDialog(title: Text("GetPosition() timed out\n" + err.toString()));
+      return;
+    }
     String? apiKey = dotenv.env['OPEN_WEATHER_API_KEY'];
     apiKey == null ? apiKey = "" : "";
 
