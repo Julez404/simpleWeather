@@ -111,12 +111,12 @@ class _HomeState extends State<Home> {
     var result = jsonDecode(response.body);
 
     setState(() {
-      this.long = result['coord']['lon'];
-      this.lat = result['coord']['lat'];
-      this.temperature = result['main']['temp'];
-      this.description = result['weather'][0]['description'];
-      this.windSpeed = result['wind']['speed'];
-      this.humidity = result['main']['humidity'];
+      long = result['coord']['lon'];
+      lat = result['coord']['lat'];
+      temperature = result['main']['temp'];
+      description = result['weather'][0]['description'];
+      windSpeed = result['wind']['speed'];
+      humidity = result['main']['humidity'];
     });
   }
 
