@@ -3,12 +3,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 
-void main() => runApp(MaterialApp(
-      title: "Weather App",
-      home: Home(),
-    ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
+  runApp(MaterialApp(
+    title: "Weather App",
+    home: Home(),
+  ));
+}
 
 class Home extends StatefulWidget {
   @override
@@ -75,6 +80,8 @@ class _HomeState extends State<Home> {
 
   Future GetWeather() async {
     Position position = await determinePosition();
+    String? apiKey = dotenv.env['OPEN_WEATHER_API_KEY'];
+    apiKey == null ? apiKey = "" : "";
 
     http.Response response = await http.get(Uri(
         scheme: 'http',
@@ -84,7 +91,7 @@ class _HomeState extends State<Home> {
           'lat': position.latitude.toString(),
           'lon': position.longitude.toString(),
           'units': 'metric',
-          'appid': 'c15e3b5b328aaf0123742277ec17d655'
+          'appid': apiKey
         }));
 
     var result = jsonDecode(response.body);
